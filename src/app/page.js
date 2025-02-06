@@ -3,7 +3,7 @@ import Footer from "../../components/Footer.jsx";
 
 export default function Home() {
   return (
-   <div>
+   <div className="flex justify-center align-center">
 
       <Footer /> 
    </div>
