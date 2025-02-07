@@ -1,8 +1,10 @@
 import React from "react";
-const Footer = () => {
+import style from "../styles/Home.module.css"
+
+const Footer = ({className}) => {
     return (
-        <footer>
-            <div>
+        <footer className={style.footer}>
+            <div className="text-white">
                 <span> Created by </span>
                 <a href="#" target="_blank"
                 rel="noopener noreferrer"
