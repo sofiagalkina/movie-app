@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "../../components/Footer";
 import styles from "../../styles/Home.module.css";
+import axios from 'axios';
 
 
 const geistSans = Geist({
@@ -21,8 +22,25 @@ export const metadata = {
 
 
 async function fetchData() {
-  const res = await fetch("https://imdb237.p.rapidapi.com/topRatedMovies");
-  return res.json();
+  
+ 
+
+  const options = {
+    url: 'https://imdb236.p.rapidapi.com/imdb/tt7631058/cast',
+    method: "GET",
+    headers: {
+      'x-rapidapi-key': '0cea453a33msh4502e8811584130p136ef0jsnf29f9bfdebb6',
+      'x-rapidapi-host': 'imdb236.p.rapidapi.com'
+    }
+  }
+
+  try {
+    const response = await axios.request(options);
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+
 }
 
 
