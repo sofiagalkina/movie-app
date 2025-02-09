@@ -26,7 +26,7 @@ async function fetchData() {
  
 
   const options = {
-    url: 'https://imdb236.p.rapidapi.com/imdb/tt7631058/cast',
+    url: 'https://imdb236.p.rapidapi.com/imdb/top250-movies',
     method: "GET",
     headers: {
       'x-rapidapi-key': '0cea453a33msh4502e8811584130p136ef0jsnf29f9bfdebb6',
@@ -56,6 +56,8 @@ export default async function RootLayout({ children }) {
       >
         {children}
         <Footer />
+
+        
       </body>
     </html>
   );
