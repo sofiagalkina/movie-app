@@ -23,9 +23,7 @@ export const metadata = {
 
 async function fetchData() {
   
- 
-
-  const options = {
+   const options = {
     url: 'https://imdb236.p.rapidapi.com/imdb/top250-movies',
     method: "GET",
     headers: {

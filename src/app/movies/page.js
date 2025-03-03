@@ -7,7 +7,7 @@ export default function MoviesPage() {
         <h1>Hello</h1>
         <p> if you see this, routing worked (no way)</p>
         <button>
-            <image src={refresh} alt="magnifying glass"></image>
+         hehe button
         </button>
         <div>
             Placeholder for movies
