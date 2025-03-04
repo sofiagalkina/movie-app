@@ -1,8 +1,9 @@
 import Footer from "../../../components/Footer";
 import Image from "next/image";
+// import styles from "../../../styles/Index.module.css"
 import axios from "axios";
 import { headers } from "next/headers";
-
+import Button from "../../../components/Button"
 async function fetchMovies() {
     
     const options = {
@@ -46,7 +47,6 @@ export default async function MoviesPage() {
 
         }
 
-     
         </div>
     
     

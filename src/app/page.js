@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "../../styles/Index.module.css"
 import update from "../../images/refresh.png"
+import Button from "../../components/Button";
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
         <Image className="icon" src={update} alt="refresh button" width={14} height={14} />
         <span > Get a movie </span>
       </div>
+      
+      <Button cn={styles.update} />
 
       
 
