@@ -4,6 +4,7 @@ import Image from "next/image";
 import axios from "axios";
 import { headers } from "next/headers";
 import Button from "../../../components/Button"
+
 async function fetchMovies() {
     
     const options = {

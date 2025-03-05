@@ -15,7 +15,11 @@ const Button = ({text = "Get a movie", cn = ""}) => {
     const getRandomMovie = () => {
        if(!items.length) return;
 
-        console.log(router);
+       const randomMovie = items[Math.floor(Math.random() * items.length)];
+       const movieId = randomMovie.id;
+
+       router.push(`/${movieId}`)
+
     }
 
     return(
