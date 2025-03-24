@@ -4,6 +4,7 @@ import Image from "next/image";
 import refreshIcon from "../images/refresh.png";
 import { useRouter } from "next/navigation";
 import { useAppStore} from "../store/store";
+import axios from "axios";
 // don't forget to import "useAppStore()" here 
 
 
@@ -11,6 +12,9 @@ const Button = ({text = "Get a movie", cn = ""}) => {
     
     const router = useRouter();
     const { items } = useAppStore();
+
+
+    
 
     const getRandomMovie = () => {
        if(!items.length) return;
