@@ -21,7 +21,8 @@ async function fetchMovies() {
     try {
         const response = await axios.request(options);
         console.log(response.data);
-        return response.data;
+        console.log(response.data.items)
+        return response.data || [];
     } catch (error){
         console.error(error);
         return [];
@@ -38,7 +39,7 @@ const Button = ({text = "Get a movie", cn = ""}) => {
         console.log(movies.data)
         if(movies.length > 0){
             const randomMovie = movies[Math.floor(Math.random() * movies.length)];
-            router.push(`/movies/${randomMovie.id}`);
+            router.push(`/${randomMovie.id}`);
         } else {
             console.error("No movies retrieved")
         }

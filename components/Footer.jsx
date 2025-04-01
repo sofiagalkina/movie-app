@@ -9,7 +9,7 @@ const Footer = ({className}) => {
                 <a href="#" target="_blank"
                 rel="noopener noreferrer"
                 >
-                    Sofia 
+                    Sofia Trane
                 </a>
             </div>
         </footer>
