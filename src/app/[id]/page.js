@@ -2,6 +2,11 @@
 import { useParams } from "next/navigation";
 import axios from "axios";
 import React, {useState, useEffect} from "react";
+import style from "../../../styles/Index.module.css";
+import Image from "next/image";
+import Button from "../../../components/Button";
+
+
 
 const MoviePage = () => {
     const { id } = useParams();
@@ -39,9 +44,19 @@ const MoviePage = () => {
 
 
     return(
-        <div>
-            <h1>{movie.primaryTitle}</h1>
-            <p>{movie.description}</p>
+        
+        <div className="max-w-2xl mx-20 ">
+            <Button cn={style.update} className="w-40" />
+            <h1 className="text-white text-2xl font-bold mt-20">{movie.primaryTitle}</h1>
+            <div className="relative w-full">
+            <Image className="movie-image" width={300} height={550}  src={movie.primaryImage} alt="Official Movie Picture from Amazon"/> 
+            </div>
+            <p className="text-white">{movie.description}</p>
+            <div> 
+                <span className="text-white"> {movie.startYear}</span>
+                <span className="text-white"> { `${movie.runtimeMinutes}`}</span>
+            </div>
+            <p className="text-white">{movie.genres}</p>
 
         </div>
     )

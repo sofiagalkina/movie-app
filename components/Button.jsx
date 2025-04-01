@@ -31,7 +31,7 @@ async function fetchMovies() {
 }
 
 
-const Button = ({text = "Get a movie", cn = ""}) => {
+const Button = ({text = "Get a movie", cn = "", className = "" }) => {
     
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ const Button = ({text = "Get a movie", cn = ""}) => {
 
     return(
         <div 
-        className={`update ${cn}`} 
+        className={`${style.update} ${cn} ${className}`} 
         onClick={!loading ? handleClick : null}
         style={{
             backgroundColor: loading ? "#c8c8c8" : "#f6d518",
@@ -63,7 +63,7 @@ const Button = ({text = "Get a movie", cn = ""}) => {
         }}
         >
               <Image 
-                className={`icon ${loading ? style.rotate : ""}`} 
+                className={`${style.icon} ${loading ? style.rotate : ""}`} 
                 src={refreshIcon} 
                 alt="A Movie Button" 
                 width={14} 
