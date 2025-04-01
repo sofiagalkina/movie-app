@@ -33,7 +33,7 @@ body{
 }
 
 .update{
-    background: #f6d518;
+
     padding: 10px;
     display: flex;
     align-items: center;
@@ -50,4 +50,5 @@ body{
 .update:hover{
     cursor: pointer;
     background: #d8bc1b;
+
 }

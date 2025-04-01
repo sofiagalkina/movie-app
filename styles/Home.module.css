@@ -18,3 +18,15 @@
     color: #2cd7fd;
     font-weight: 500;
 }
+
+
+/* This is an animation for a button's spinning icon: */
+
+.rotate{
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}

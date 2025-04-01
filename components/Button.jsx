@@ -1,10 +1,11 @@
 "use client"; 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import refreshIcon from "../images/refresh.png";
 import { useRouter } from "next/navigation";
 import { useAppStore} from "../store/store";
 import axios from "axios";
+import style from "../styles/Home.module.css";
 // don't forget to import "useAppStore()" here 
 
 async function fetchMovies() {
@@ -33,8 +34,10 @@ async function fetchMovies() {
 const Button = ({text = "Get a movie", cn = ""}) => {
     
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
   
     const handleClick = async () => {
+        setLoading(true);
         const movies = await fetchMovies();
         console.log(movies.data)
         if(movies.length > 0){
@@ -42,13 +45,31 @@ const Button = ({text = "Get a movie", cn = ""}) => {
             router.push(`/${randomMovie.id}`);
         } else {
             console.error("No movies retrieved")
+            setLoading(false);
         }
+
+       
     }
 
     return(
-        <div className={`update ${cn}`} onClick={handleClick}>
-            <Image className="icon" src={refreshIcon} alt="A Movie Button" width={14} height={14}></Image>
-            <span>{text}</span>
+        <div 
+        className={`update ${cn}`} 
+        onClick={!loading ? handleClick : null}
+        style={{
+            backgroundColor: loading ? "#c8c8c8" : "#f6d518",
+            cursor: loading ? "not-allowed" : "pointer",
+            opacity: 1,
+            transition: "background-color 0.3s ease"
+        }}
+        >
+              <Image 
+                className={`icon ${loading ? style.rotate : ""}`} 
+                src={refreshIcon} 
+                alt="A Movie Button" 
+                width={14} 
+                height={14} 
+            />
+            <span>{loading? "Loading..." : text}</span>
         </div>
     )
 }
