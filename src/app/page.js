@@ -27,7 +27,7 @@ export default function Home() {
 
     
 
-      <Button cn={styles.update} />
+      <Button  cn={styles.update}  />
 
       
 

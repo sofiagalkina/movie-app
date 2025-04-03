@@ -56,7 +56,7 @@ const Button = ({text = "Get a movie", cn = "", className = "" }) => {
         className={`${style.update} ${cn} ${className}`} 
         onClick={!loading ? handleClick : null}
         style={{
-            backgroundColor: loading ? "#c8c8c8" : "#f6d518",
+            backgroundColor: loading ? "#c8c8c8" : "#ebb305",
             cursor: loading ? "not-allowed" : "pointer",
             opacity: 1,
             transition: "background-color 0.3s ease"

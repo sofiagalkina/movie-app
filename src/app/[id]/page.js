@@ -50,8 +50,8 @@ const MoviePage = () => {
             <h1 className="text-white text-2xl font-bold mt-20">{movie.primaryTitle}</h1>
             <div className="flex flex-wrap gap-3">
                 <span className="bg-yellow-500 text-black rounded-lg px-2">IMDb</span>
-                <span className="text-white"> {movie.averageRating}</span>
-                <span className="text-white"> {`Rated ${movie.contentRating}`}</span>
+                <span className="text-white"> { `${movie.averageRating} / 10`}</span>
+                <span className="text-white"> {movie.contentRating}</span>
             </div>
             <div className="relative w-full">
             <Image className="movie-image" width={300} height={550}  src={movie.primaryImage} alt="Official Movie Picture from Amazon"/> 
@@ -60,6 +60,7 @@ const MoviePage = () => {
             <div> 
                 <span className="text-white"> {movie.startYear}</span>
                 <span className="text-white"> { `${Math.floor(movie.runtimeMinutes / 60)} hr ${movie.runtimeMinutes % 60} m`}</span>
+               
             </div>
 
            
@@ -69,6 +70,8 @@ const MoviePage = () => {
                  {genre}
              </span>
                 ))}
+
+               
             </div>
 
     

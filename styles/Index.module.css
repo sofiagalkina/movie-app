@@ -33,7 +33,7 @@ body{
 }
 
 .update{
-
+    background-color: #ebb305;
     padding: 10px;
     display: flex;
     align-items: center;
