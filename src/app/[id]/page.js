@@ -54,7 +54,7 @@ const MoviePage = () => {
             <p className="text-white">{movie.description}</p>
             <div> 
                 <span className="text-white"> {movie.startYear}</span>
-                <span className="text-white"> { `${movie.runtimeMinutes}`}</span>
+                <span className="text-white"> { `${Math.floor(movie.runtimeMinutes / 60)} hr ${movie.runtimeMinutes % 60} m`}</span>
             </div>
 
            
