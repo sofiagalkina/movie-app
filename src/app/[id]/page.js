@@ -48,6 +48,11 @@ const MoviePage = () => {
         <div className="max-w-2xl mx-20 ">
             <Button cn={style.update} className="w-40" />
             <h1 className="text-white text-2xl font-bold mt-20">{movie.primaryTitle}</h1>
+            <div className="flex flex-wrap gap-3">
+                <span className="bg-yellow-500 text-black rounded-lg px-2">IMDb</span>
+                <span className="text-white"> {movie.averageRating}</span>
+                <span className="text-white"> {`Rated ${movie.contentRating}`}</span>
+            </div>
             <div className="relative w-full">
             <Image className="movie-image" width={300} height={550}  src={movie.primaryImage} alt="Official Movie Picture from Amazon"/> 
             </div>
