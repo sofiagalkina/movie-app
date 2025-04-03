@@ -56,8 +56,17 @@ const MoviePage = () => {
                 <span className="text-white"> {movie.startYear}</span>
                 <span className="text-white"> { `${movie.runtimeMinutes}`}</span>
             </div>
-            <p className="text-white">{movie.genres}</p>
 
+           
+            <div className="flex flex-wrap gap-3">
+                {movie.genres?.flatMap(genre => genre.split(/(?=[A-Z])/)).map((genre, index) => (
+                <span key={index} className="bg-gray-700 text-white px-3 py-1 rounded-lg text-sm">
+                 {genre}
+             </span>
+                ))}
+            </div>
+
+    
         </div>
     )
 }
