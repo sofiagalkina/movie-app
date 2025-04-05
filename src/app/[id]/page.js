@@ -6,69 +6,58 @@ import style from "../../../styles/Index.module.css";
 import Image from "next/image";
 import Button from "../../../components/Button";
 
-const API_KEY = "ca350039a8bbe94386cc58c495307268";
+const API_TOKEN = "bb68c74b-a4bf-4078-97d8-c19227709b51";
 
-// Fetch Actor Image from TMDb API
-const fetchActorImage = async (tmdbId) => {
-    try {
-        const response = await axios.get(
-            `https://api.themoviedb.org/3/person/${tmdbId}?api_key=${API_KEY}`
-        );
-        return response.data.profile_path
-            ? `https://image.tmdb.org/t/p/w185${response.data.profile_path}`
-            : "https://placehold.co/600x400.png";
-    } catch (error) {
-        console.error(`Error fetching image for actor ${tmdbId}:`, error);
-        return "https://placehold.co/600x400.png";
-    }
-};
 
-// CastList Component to Display Cast
-const CastList = ({ cast }) => {
-    const [actorImages, setActorImages] = useState({});
-
+const ActorInfo = () => {
+    const { id } = useParams();
+    const [cast, setCast] = useState([]);
+  
     useEffect(() => {
-        const loadImages = async () => {
-            const imagePromises = cast.map(async (actor) => {
-                if (actor.tmdbId) {
-                    const imageUrl = await fetchActorImage(actor.tmdbId);
-                    return { [actor.tmdbId]: imageUrl };
-                }
-                return {};
-            });
-
-            const imageResults = await Promise.all(imagePromises);
-            setActorImages(Object.assign({}, ...imageResults));
-        };
-
-        if (cast.length > 0) {
-            loadImages();
+      const fetchActorInfo = async () => {
+        try {
+          // Request the server-side route
+          const response = await fetch(`/api/actor-info/${id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch actor information');
+          }
+          const data = await response.json();
+          console.log("Actor data:", data);
+          setCast(data?.cast || []);
+        } catch (error) {
+          console.error('Error fetching actor details:', error);
         }
-    }, [cast]);
-
+      };
+  
+      if (id) {
+        fetchActorInfo();
+      }
+    }, [id]);
+  
     return (
-        <div className="flex flex-wrap gap-3">
-        {cast.map((actor, index) => (
-            <div 
-                key={`${actor.id}-${index}`} 
-                className="bg-gray-700 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-2"
-            >
-                <Image
-                    src={actorImages[actor.tmdbId] || "https://placehold.co/600x400.png"}
-                    alt={actor.fullName}
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                />
-                <span>{actor.fullName}</span>
+      <div className="flex flex-wrap gap-3">
+        {cast.map((actor) => (
+          <div key={actor.id} className="bg-gray-700 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-2">
+            <Image
+              src={actor.url || "https://placehold.co/40x40"}
+              alt={actor.fullName}
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <div>
+              <div>{actor.fullName}</div>
+              <div className="text-xs text-gray-300">{actor.characters?.join(", ")}</div>
             </div>
+          </div>
         ))}
-    </div>
-    
+      </div>
     );
-};
+  };
+  
 
-const MoviePage = () => {
+
+export const MoviePage = () => {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
@@ -116,7 +105,7 @@ const MoviePage = () => {
             <p className="text-white">{movie.description}</p>
             <div>
                 <span className="text-white">{movie.startYear}</span>
-                <span className="text-white">{`${Math.floor(movie.runtimeMinutes / 60)} hr ${movie.runtimeMinutes % 60} m`}</span>
+                <span className="text-white">{`  ${Math.floor(movie.runtimeMinutes / 60)} hr ${movie.runtimeMinutes % 60} m`}</span>
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -131,8 +120,7 @@ const MoviePage = () => {
                 </summary>
                 <h2 className="text-white font-bold mt-2">Cast</h2>
                 
-                <CastList cast={movie.cast || []} />
-
+                < ActorInfo />
                 <h2 className="text-white font-bold mt-2">Reviews</h2>
             </details>
         </div>
@@ -140,3 +128,4 @@ const MoviePage = () => {
 };
 
 export default MoviePage;
+export {ActorInfo};
