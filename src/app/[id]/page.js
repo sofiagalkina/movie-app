@@ -6,8 +6,6 @@ import style from "../../../styles/Index.module.css";
 import Image from "next/image";
 import Button from "../../../components/Button";
 
-const API_TOKEN = "bb68c74b-a4bf-4078-97d8-c19227709b51";
-
 
 const ActorInfo = () => {
     const { id } = useParams();
@@ -45,10 +43,7 @@ const ActorInfo = () => {
               height={40}
               className="rounded-full"
             />
-            <div>
-              <div>{actor.fullName}</div>
-              <div className="text-xs text-gray-300">{actor.characters?.join(", ")}</div>
-            </div>
+         
           </div>
         ))}
       </div>
@@ -120,7 +115,11 @@ export const MoviePage = () => {
                 </summary>
                 <h2 className="text-white font-bold mt-2">Cast</h2>
                 
-                < ActorInfo />
+                 <div>
+                   <div>{movie.fullName}</div>
+                    <div className="text-xs text-gray-300">{movie.characters?.join(", ")}</div>
+                </div>
+                
                 <h2 className="text-white font-bold mt-2">Reviews</h2>
             </details>
         </div>
@@ -128,4 +127,3 @@ export const MoviePage = () => {
 };
 
 export default MoviePage;
-export {ActorInfo};
