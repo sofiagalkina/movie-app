@@ -57,6 +57,35 @@ export default function MoviePage ()  {
     const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
 
+    const KNOWN_GENRES = [
+      "Action", "Adventure", "SciFi", "Sci-Fi", "Comedy", "Romance", "Crime", "Drama",
+      "Horror", "Thriller", "Fantasy", "Mystery", "Biography", "Animation", "Documentary",
+      "Music", "Musical", "Family", "War", "Western", "History", "Sport", "Reality-TV"
+    ];
+
+    const extractGenres = (compoundString) => {
+      let remaining = compoundString;
+      const result = [];
+    
+      while (remaining.length > 0) {
+        const match = KNOWN_GENRES.find((genre) =>
+          remaining.startsWith(genre)
+        );
+        if (match) {
+          result.push(match === "SciFi" ? "Sci-Fi" : match); // Normalize if needed
+          remaining = remaining.slice(match.length);
+        } else {
+          // If no match found, break to avoid infinite loop
+          break;
+        }
+      }
+    
+      return result;
+    };
+    
+
+    
+
     useEffect(() => {
         if (id) {
             axios
@@ -104,10 +133,13 @@ export default function MoviePage ()  {
             </div>
 
             <div className="flex flex-wrap gap-3">
-                {movie.genres?.flatMap((genre) => genre.split(/(?=[A-Z])/)).map((genre, index) => (
-                    <span key={index} className="bg-gray-700 text-white px-3 py-1 rounded-lg text-sm">{genre}</span>
-                ))}
-            </div>
+               {movie.genres?.flatMap(extractGenres).map((genre, index) => (
+                 <span key={index} className="bg-gray-700 text-white px-3 py-1 rounded-lg text-sm">
+               {genre}
+             </span>
+               ))}
+             </div>
+
 
             <details className="">
                 <summary className="bg-white text-black px-3 py-1 rounded-lg text-sm cursor-pointer list-none mt-5 hover:bg-gray-300">
