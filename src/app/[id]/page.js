@@ -52,7 +52,7 @@ const ActorInfo = () => {
   
 
 
-export const MoviePage = () => {
+export default function MoviePage ()  {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
@@ -126,4 +126,3 @@ export const MoviePage = () => {
     );
 };
 
-export default MoviePage;
