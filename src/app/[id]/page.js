@@ -7,48 +7,6 @@ import Image from "next/image";
 import Button from "../../../components/Button";
 
 
-const ActorInfo = () => {
-    const { id } = useParams();
-    const [cast, setCast] = useState([]);
-  
-    useEffect(() => {
-      const fetchActorInfo = async () => {
-        try {
-          // Request the server-side route
-          const response = await fetch(`/api/actor-info/${id}`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch actor information');
-          }
-          const data = await response.json();
-          console.log("Actor data:", data);
-          setCast(data?.cast || []);
-        } catch (error) {
-          console.error('Error fetching actor details:', error);
-        }
-      };
-  
-      if (id) {
-        fetchActorInfo();
-      }
-    }, [id]);
-  
-    return (
-      <div className="flex flex-wrap gap-3">
-        {cast.map((actor) => (
-          <div key={actor.id} className="bg-gray-700 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-2">
-            <Image
-              src={actor.url || "https://placehold.co/40x40"}
-              alt={actor.fullName}
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-         
-          </div>
-        ))}
-      </div>
-    );
-  };
   
 
 
@@ -147,10 +105,39 @@ export default function MoviePage ()  {
                 </summary>
                 <h2 className="text-white font-bold mt-2">Cast</h2>
                 
-                 <div>
-                   <div>{movie.fullName}</div>
-                    <div className="text-xs text-gray-300">{movie.characters?.join(", ")}</div>
-                </div>
+                {movie.cast?.map((actor, index) => (
+  <div key={`${actor.id}-${index}`} className="bg-gray-800 text-white p-3 rounded-lg shadow-md">
+    <div className="flex items-center gap-3">
+      <Image
+        src={actor.image || "https://placehold.co/40x40"}
+        alt={actor.fullName}
+        width={40}
+        height={40}
+        className="rounded-full"
+      />
+      <div>
+        <a
+          href={actor.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-400 hover:underline font-semibold"
+        >
+          {actor.fullName}
+        </a>
+        <div className="text-xs text-gray-400">{actor.job}</div>
+      </div>
+    </div>
+    {actor.characters && (
+      <div className="mt-1 text-sm text-gray-300">
+        <span className="font-medium">Character:</span>{" "}
+        {Array.isArray(actor.characters)
+          ? actor.characters.join(", ")
+          : actor.characters}
+      </div>
+    )}
+  </div>
+))}
+
                 
                 <h2 className="text-white font-bold mt-2">Reviews</h2>
             </details>
