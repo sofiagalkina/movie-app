@@ -7,13 +7,11 @@ import Image from "next/image";
 import Button from "../../../components/Button";
 
 
-  
-
-
 export default function MoviePage ()  {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
+    const [actorImages, setActorImages] = useState({});
 
     const KNOWN_GENRES = [
       "Action", "Adventure", "SciFi", "Sci-Fi", "Comedy", "Romance", "Crime", "Drama",
@@ -41,9 +39,6 @@ export default function MoviePage ()  {
       return result;
     };
     
-
-    
-
     useEffect(() => {
         if (id) {
             axios
@@ -63,6 +58,42 @@ export default function MoviePage ()  {
                 });
         }
     }, [id]);
+
+
+    // this is new useEffect to fetch images ONCE THE MOVIE LOADS from a different API:
+    useEffect(() => {
+      const fetchActorImages = async () => {
+        if (movie?.cast?.length > 0) {
+          const images = {};
+  
+          await Promise.all(
+            movie.cast.map(async (actor) => {
+              try {
+                const response = await axios.get("https://api.themoviedb.org/3/search/person", {
+                  params: { query: actor.fullName },
+                  headers: {
+                    accept: "application/json",
+                    Authorization:
+                      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTM1MDAzOWE4YmJlOTQzODZjYzU4YzQ5NTMwNzI2OCIsIm5iZiI6MTc0MzcxNjgyMy43NjQsInN1YiI6IjY3ZWYwMWQ3NjZkNzAxNDJiNjk5MWI3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9Z1ioj8xFQTPba7StLoJV3UXjvFTn2-8iVVIynYSfVU",
+                  },
+                });
+  
+                const person = response.data.results[0];
+                if (person?.profile_path) {
+                  images[actor.id] = `https://image.tmdb.org/t/p/w185${person.profile_path}`;
+                }
+              } catch (err) {
+                console.error(`Error fetching TMDB data for ${actor.fullName}:`, err);
+              }
+            })
+          );
+  
+          setActorImages(images);
+        }
+      };
+  
+      fetchActorImages();
+    }, [movie]);
 
     if (error) {
         return <div>{error}</div>;
@@ -108,13 +139,13 @@ export default function MoviePage ()  {
                 {movie.cast?.map((actor, index) => (
   <div key={`${actor.id}-${index}`} className="bg-gray-800 text-white p-3 rounded-lg shadow-md mb-5 mt-5">
     <div className="flex items-center gap-3">
-      <Image
-        src={actor.image || "https://placehold.co/40x40"}
-        alt={actor.fullName}
-        width={40}
-        height={40}
-        className="rounded-full"
-      />
+    <Image
+                src={actorImages[actor.id] || actor.image || "https://placehold.co/40x40"}
+                alt={actor.fullName}
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
       <div>
         <a
           href={actor.url}
