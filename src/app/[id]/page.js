@@ -106,7 +106,7 @@ export default function MoviePage ()  {
                 <h2 className="text-white font-bold mt-2">Cast</h2>
                 
                 {movie.cast?.map((actor, index) => (
-  <div key={`${actor.id}-${index}`} className="bg-gray-800 text-white p-3 rounded-lg shadow-md">
+  <div key={`${actor.id}-${index}`} className="bg-gray-800 text-white p-3 rounded-lg shadow-md mb-5 mt-5">
     <div className="flex items-center gap-3">
       <Image
         src={actor.image || "https://placehold.co/40x40"}
