@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useAppStore} from "../store/store";
 import axios from "axios";
 import style from "../styles/Home.module.css";
-// don't forget to import "useAppStore()" here 
 
 async function fetchMovies() {
     

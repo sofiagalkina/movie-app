@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import style from "../../../styles/Index.module.css";
 import Image from "next/image";
 import Button from "../../../components/Button";
-
+import SearchBar from "../../../components/SearchBar";
 
 export default function MoviePage ()  {
     const { id } = useParams();
@@ -105,12 +105,19 @@ export default function MoviePage ()  {
 
     return (
         <div className="max-w-2xl mx-20">
-            <Button cn={style.update} className="w-40" />
+
+          <div className="">
+            <SearchBar /> 
+            <button className="text-gray-500 bg-gray-800 rounded-lg p-2 mt-5">Search a movie...</button>
+          <Button cn={style.update} className="w-40" />
+          </div>
+
             <h1 className="text-white text-2xl font-bold mt-20">{movie.primaryTitle}</h1>
             <div className="flex flex-wrap gap-3">
-                <span className="bg-yellow-500 text-black rounded-lg px-2">IMDb</span>
-                <span className="text-white"> {`${movie.averageRating} / 10`}</span>
-                <span className="text-white"> {movie.contentRating}</span>
+                <span className="bg-yellow-500 text-black rounded-lg px-2 mb-2">IMDb</span>
+                <span className="text-gray-500"> {`${movie.averageRating} / 10 `}</span>
+                <span className="text-gray-500"> • </span>
+                <span className="text-gray-500"> {movie.contentRating}</span>
             </div>
             <div className="relative w-full">
                 <Image className="movie-image" width={300} height={550} src={movie.primaryImage} alt="Official Movie Picture from Amazon" />
