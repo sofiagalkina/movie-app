@@ -95,6 +95,42 @@ export default function MoviePage ()  {
       fetchActorImages();
     }, [movie]);
 
+
+    const [reviews, setReviews] = useState([]);
+
+useEffect(() => {
+  const fetchReviews = async () => {
+    if (!movie?.id) return;
+
+    try {
+      const findResponse = await axios.get(`https://api.themoviedb.org/3/find/${movie.id}`, {
+        params: { external_source: "imdb_id" },
+        headers: {
+          Authorization: `Bearer YOUR_ACCESS_TOKEN`, 
+          accept: "application/json",
+        },
+      });
+
+      const tmdbId = findResponse.data.movie_results?.[0]?.id;
+      if (!tmdbId) return;
+
+      const reviewResponse = await axios.get(`https://api.themoviedb.org/3/movie/${tmdbId}/reviews`, {
+        headers: {
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTM1MDAzOWE4YmJlOTQzODZjYzU4YzQ5NTMwNzI2OCIsIm5iZiI6MTc0MzcxNjgyMy43NjQsInN1YiI6IjY3ZWYwMWQ3NjZkNzAxNDJiNjk5MWI3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9Z1ioj8xFQTPba7StLoJV3UXjvFTn2-8iVVIynYSfVU",
+          accept: "application/json",
+        },
+      });
+
+      setReviews(reviewResponse.data.results);
+    } catch (error) {
+      console.error("Failed to fetch reviews:", error);
+    }
+  };
+
+  fetchReviews();
+}, [movie]);
+
+
     if (error) {
         return <div>{error}</div>;
     }
@@ -178,6 +214,24 @@ export default function MoviePage ()  {
 
                 
                 <h2 className="text-white font-bold mt-2">Reviews</h2>
+{reviews.length > 0 ? (
+  reviews.map((review) => (
+    <div key={review.id} className="bg-gray-800 text-white p-4 rounded-lg mt-3">
+      <div className="font-semibold">{review.author}</div>
+      <div className="text-sm italic text-gray-300">
+        {review.content.length > 300
+          ? review.content.slice(0, 300) + "..."
+          : review.content}
+      </div>
+      <div className="text-xs text-gray-400 mt-2">
+        Rating: {review.author_details.rating ?? "N/A"}
+      </div>
+    </div>
+  ))
+) : (
+  <p className="text-gray-400 italic">No reviews available.</p>
+)}
+
             </details>
         </div>
     );
