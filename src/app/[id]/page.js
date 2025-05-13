@@ -96,40 +96,63 @@ export default function MoviePage ()  {
     }, [movie]);
 
 
+    // reviews:
     const [reviews, setReviews] = useState([]);
 
-useEffect(() => {
-  const fetchReviews = async () => {
-    if (!movie?.id) return;
+    useEffect(() => {
+      const fetchReviews = async () => {
+        if (!movie?.id) return;
+    
+        try {
+          // STEP 1: Convert IMDb ID to TMDB ID
+          const findResponse = await axios.get(
+            `https://api.themoviedb.org/3/find/${movie.id}`,
+            {
+              params: { external_source: "imdb_id" },
+              headers: {
+                accept: "application/json",
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTM1MDAzOWE4YmJlOTQzODZjYzU4YzQ5NTMwNzI2OCIsIm5iZiI6MTc0MzcxNjgyMy43NjQsInN1YiI6IjY3ZWYwMWQ3NjZkNzAxNDJiNjk5MWI3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9Z1ioj8xFQTPba7StLoJV3UXjvFTn2-8iVVIynYSfVU"
+              }
+            }
+          );
+    
+          const tmdbId = findResponse.data.movie_results?.[0]?.id;
+          if (!tmdbId) {
+            console.warn("TMDB ID not found for IMDb ID:", movie.id);
+            return;
+          }
+    
+          // STEP 2: Use TMDB ID to get reviews
+          const reviewResponse = await axios.get(
+            `https://api.themoviedb.org/3/movie/${tmdbId}/reviews`,
+            {
+              params: {
+                language: "en-US",
+                page: "1"
+              },
+              headers: {
+                accept: "application/json",
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTM1MDAzOWE4YmJlOTQzODZjYzU4YzQ5NTMwNzI2OCIsIm5iZiI6MTc0MzcxNjgyMy43NjQsInN1YiI6IjY3ZWYwMWQ3NjZkNzAxNDJiNjk5MWI3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9Z1ioj8xFQTPba7StLoJV3UXjvFTn2-8iVVIynYSfVU"
+              }
+            }
+          );
+    
+          setReviews(reviewResponse.data.results);
+        } catch (error) {
+          console.error("Failed to fetch reviews:", error);
+          if (error.response) {
+            console.error("Response data:", error.response.data);
+            console.error("Status:", error.response.status);
+            console.error("Headers:", error.response.headers);
+          }
+        }
+      };
+    
+      fetchReviews();
+    }, [movie]);
 
-    try {
-      const findResponse = await axios.get(`https://api.themoviedb.org/3/find/${movie.id}`, {
-        params: { external_source: "imdb_id" },
-        headers: {
-          Authorization: `Bearer YOUR_ACCESS_TOKEN`, 
-          accept: "application/json",
-        },
-      });
-
-      const tmdbId = findResponse.data.movie_results?.[0]?.id;
-      if (!tmdbId) return;
-
-      const reviewResponse = await axios.get(`https://api.themoviedb.org/3/movie/${tmdbId}/reviews`, {
-        headers: {
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTM1MDAzOWE4YmJlOTQzODZjYzU4YzQ5NTMwNzI2OCIsIm5iZiI6MTc0MzcxNjgyMy43NjQsInN1YiI6IjY3ZWYwMWQ3NjZkNzAxNDJiNjk5MWI3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9Z1ioj8xFQTPba7StLoJV3UXjvFTn2-8iVVIynYSfVU",
-          accept: "application/json",
-        },
-      });
-
-      setReviews(reviewResponse.data.results);
-    } catch (error) {
-      console.error("Failed to fetch reviews:", error);
-    }
-  };
-
-  fetchReviews();
-}, [movie]);
-
+    
+    // end of reviews
 
     if (error) {
         return <div>{error}</div>;
