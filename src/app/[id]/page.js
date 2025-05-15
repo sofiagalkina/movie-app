@@ -6,6 +6,7 @@ import style from "../../../styles/Index.module.css";
 import Image from "next/image";
 import Button from "../../../components/Button";
 import SearchBar from "../../../components/SearchBar";
+import { Actor } from "next/font/google";
 
 export default function MoviePage ()  {
     const { id } = useParams();
@@ -63,11 +64,12 @@ export default function MoviePage ()  {
     // this is new useEffect to fetch images ONCE THE MOVIE LOADS from a different API:
     useEffect(() => {
       const fetchActorImages = async () => {
-        if (movie?.cast?.length > 0) {
+        if ( movie?.cast?.length > 0) {
           const images = {};
   
           await Promise.all(
             movie.cast.map(async (actor) => {
+              console.log(`actor.job: ${actor.job}`)
               try {
                 const response = await axios.get("https://api.themoviedb.org/3/search/person", {
                   params: { query: actor.fullName },
@@ -85,7 +87,9 @@ export default function MoviePage ()  {
               } catch (err) {
                 console.error(`Error fetching TMDB data for ${actor.fullName}:`, err);
               }
+            
             })
+            
           );
   
           setActorImages(images);
@@ -202,18 +206,26 @@ export default function MoviePage ()  {
                 </summary>
                 <h2 className="text-white font-bold mt-2">Cast</h2>
                 
-                {movie.cast?.map((actor, index) => (
-  <div key={`${actor.id}-${index}`} className="bg-gray-800 text-white p-3 rounded-lg shadow-md mb-5 mt-5">
-    <div className="flex items-center gap-3">
-    <Image
-                src={actorImages[actor.id] || actor.image || "https://placehold.co/40x40"}
-                alt={actor.fullName}
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-      <div>
-        <a
+                
+                {movie.cast
+                ?.filter(
+                  actor => {
+                    const job = actor.job?.toLowerCase();
+                    return job == "actor" || job == "actress";
+                  })
+                .map((actor, index) => (
+          <div key={`${actor.id}-${index}`} className="bg-gray-800 text-white p-3 rounded-lg shadow-md mb-5 mt-5">
+          <div className="flex items-center gap-3">
+
+          <Image
+                      src={actorImages[actor.id] || actor.image || "https://placehold.co/40x40"}
+                      alt={actor.fullName}
+                      width={40}
+                      height={40}
+                      className="rounded-full"
+                    />
+            <div>
+              <a
           href={actor.url}
           target="_blank"
           rel="noopener noreferrer"
