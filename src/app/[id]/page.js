@@ -201,12 +201,11 @@ export default function MoviePage ()  {
 
 
             <details className="">
-                <summary className="bg-white text-black px-3 py-1 rounded-lg text-sm cursor-pointer list-none mt-5 hover:bg-gray-300">
+                <summary className="bg-white w-fit text-black px-3 py-1 rounded-xl text-sm cursor-pointer list-none mt-5 hover:bg-gray-300">
                     View more information
                 </summary>
                 <h2 className="text-white font-bold mt-2">Cast</h2>
-                
-                
+              <div className="flex overflow-x-auto space-x-4 py-4 ">             
                 {movie.cast
                 ?.filter(
                   actor => {
@@ -214,15 +213,15 @@ export default function MoviePage ()  {
                     return job == "actor" || job == "actress";
                   })
                 .map((actor, index) => (
-          <div key={`${actor.id}-${index}`} className="bg-gray-800 text-white p-3 rounded-lg shadow-md mb-5 mt-5">
-          <div className="flex items-center gap-3">
+          <div key={`${actor.id}-${index}`} >
+          <div className="flex flex-col items-center text-center gap-2">
 
           <Image
-                      src={actorImages[actor.id] || actor.image || "https://placehold.co/40x40"}
+                      src={actorImages[actor.id] || actor.image || "/images/Person_Image_Placeholder.png"}
                       alt={actor.fullName}
                       width={40}
                       height={40}
-                      className="rounded-full"
+                      className="rounded-full object-cover"
                     />
             <div>
               <a
@@ -232,20 +231,15 @@ export default function MoviePage ()  {
           className="text-blue-400 hover:underline font-semibold"
         >
           {actor.fullName}
+          
         </a>
-        <div className="text-xs text-gray-400">{actor.job}</div>
+        
+        <div className="text-xs text-gray-400">{actor.characters}</div>
       </div>
     </div>
-    {actor.characters && (
-      <div className="mt-1 text-sm text-gray-300">
-        <span className="font-medium">Character:</span>{" "}
-        {Array.isArray(actor.characters)
-          ? actor.characters.join(", ")
-          : actor.characters}
-      </div>
-    )}
   </div>
 ))}
+</div>  
 
                 
                 <h2 className="text-white font-bold mt-2">Reviews</h2>
