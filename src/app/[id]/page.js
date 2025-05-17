@@ -43,7 +43,7 @@ export default function MoviePage ()  {
     useEffect(() => {
         if (id) {
             axios
-                .get(`https://imdb236.p.rapidapi.com/imdb/${id}`, {
+                .get(`https://imdb236.p.rapidapi.com/api/imdb/${id}`, {
                     headers: {
                         "x-rapidapi-key": "0cea453a33msh4502e8811584130p136ef0jsnf29f9bfdebb6",
                         "x-rapidapi-host": "imdb236.p.rapidapi.com",
@@ -171,7 +171,6 @@ export default function MoviePage ()  {
 
           <div className="">
             <SearchBar /> 
-            <button className="text-gray-500 bg-gray-800 rounded-lg p-2 mt-5">Search a movie...</button>
           <Button cn={style.update} className="w-40" />
           </div>
 

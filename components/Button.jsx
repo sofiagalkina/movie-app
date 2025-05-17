@@ -11,7 +11,7 @@ async function fetchMovies() {
     
     const options = {
         method: 'GET',
-        url: 'https://imdb236.p.rapidapi.com/imdb/top250-movies',
+        url: 'https://imdb236.p.rapidapi.com/api/imdb/top250-movies',
         headers: {
              'x-rapidapi-key': '0cea453a33msh4502e8811584130p136ef0jsnf29f9bfdebb6',
              'x-rapidapi-host': 'imdb236.p.rapidapi.com'

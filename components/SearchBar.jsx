@@ -18,7 +18,7 @@ import { type } from "os";
       if (!query) return;
   
       try {
-        const response = await axios.get("https://imdb236.p.rapidapi.com/imdb/search", {
+        const response = await axios.get("https://imdb236.p.rapidapi.com/api/imdb/search", {
           params: { 
               title: query,
               type: "movie",
@@ -32,10 +32,12 @@ import { type } from "os";
           },
         });
   
-        setResults(response.data.titles || []);
+        setResults(response.data.results);
+        console.log("Search response data:" , response.data.results)
         setError(null);
-        console.log(response.data)
-        router.push("/searchResult");
+        
+      router.push(`/searchResult?query=${encodeURIComponent(query)}`);
+
       } catch (err) {
         console.error(err);
         setError("Failed to fetch results.");
@@ -61,7 +63,9 @@ import { type } from "os";
           {results.map((movie) => (
             <div key={movie.id} className="cursor-pointer mb-2" onClick={() => router.push(`/movies/${movie.id}`)}>
               <span className="text-white">{movie.primaryTitle}</span>
+              <span className="text-white">{movie.averageRating}</span>
             </div>
+            
           ))}
         </div>
       </div>
