@@ -3,7 +3,9 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image
 
+from "next/image";
 export default function SearchResult() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
@@ -28,7 +30,7 @@ export default function SearchResult() {
             accept: "application/json",
               },
         });
-setResults(response.data.results || []);
+    setResults(response.data.results || []);
 
 
         console.log("Search query:", query);
@@ -42,6 +44,7 @@ setResults(response.data.results || []);
 
 
         setResults(response.data.results || []);
+        console.log("Search results from the API: ", response.data.results)
         setError(null);
       } catch (err) {
         console.error(err);
@@ -64,9 +67,21 @@ setResults(response.data.results || []);
             <div
               key={movie.id}
               className="cursor-pointer mb-2"
-              onClick={() => router.push(`/movies/${movie.id}`)}
+            
             >
               <span>{movie.title}</span> - <span>{movie.vote_average}</span>
+              <p>{movie.overview}</p>
+              <Image 
+                className="movie-image"
+                width={300}
+                height={550}
+                 alt={`Poster for ${movie.title}`}
+                src={
+                movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : "/images/Person_Image_Placeholder.png" 
+                }
+              />
             </div>
           ))
         )}
