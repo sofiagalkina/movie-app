@@ -9,13 +9,6 @@ import { useEffect } from "react";
 
 export default function Home() {
 
-  const { items, setItems } = useAppStore();
-  useEffect(() =>{
-    console.log("Initial zustand state: ", items);
-    setItems(["Movie1", "Movie2", "Movie3"]);
-    console.log("Updates zustand state: ", useAppStore.getState().items);
-  }, []);
-
   return (
    <div className={styles.wrap}>
 
@@ -25,11 +18,7 @@ export default function Home() {
           The best movie app in galaxy to help you find a movie for tonight 
       </div>
 
-    
-
       <Button  cn={styles.update}  />
-
-      
 
    </div>
 

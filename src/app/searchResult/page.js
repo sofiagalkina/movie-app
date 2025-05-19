@@ -3,9 +3,8 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Image
+import Image from "next/image";
 
-from "next/image";
 export default function SearchResult() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
@@ -66,20 +65,20 @@ export default function SearchResult() {
           results.map((movie) => (
             <div
               key={movie.id}
-              className="cursor-pointer mb-2"
+              className="mb-2"
             
             >
-              <span>{movie.title}</span> - <span>{movie.vote_average}</span>
+              <span className="text-blue-400 underline cursor-pointer" onClick={() => router.push(`/movies/${movie.id}`)} >{movie.title}</span> - <span>{movie.vote_average}</span>
               <p>{movie.overview}</p>
               <Image 
                 className="movie-image"
-                width={300}
-                height={550}
+                width={200}
+                height={450}
                  alt={`Poster for ${movie.title}`}
                 src={
                 movie.poster_path
                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                : "/images/Person_Image_Placeholder.png" 
+                : "/images/images.jpeg" 
                 }
               />
             </div>
