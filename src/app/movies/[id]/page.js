@@ -78,11 +78,11 @@ console.log("Rating:", certification); // e.g., "PG-13"
   
 
   return (
-        <div className="max-w-2xl mx-20">
+        <div className="w-full mx-10">
 
-          <div className="">
+          <div className="flex justify-between items-center mb-4">
             <SearchBar /> 
-          <Button cn={style.update} className="w-40" />
+            <Button cn={style.update} className="w-40" />
           </div>
 
             <h1 className="text-white text-2xl font-bold mt-20">{movie.title}</h1>

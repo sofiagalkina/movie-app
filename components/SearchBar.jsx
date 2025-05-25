@@ -45,16 +45,16 @@ import { type } from "os";
     };
 
     return (
-      <div className="p-4">
+      <div className="p-4 flex gap-3 ">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a movie..."
-          className="px-4 py-2 rounded-lg border border-gray-300"
+          className="px-3 py-3 rounded-lg border border-gray-300 text-black"
         />
-        <button onClick={handleSearch} className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg">
-          Search
+        <button onClick={handleSearch} className=" ">
+          <span className="pl-10">Search</span>
         </button>
     
         {error && <div className="text-red-500 mt-2">{error}</div>}
