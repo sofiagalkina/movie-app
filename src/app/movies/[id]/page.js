@@ -101,7 +101,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 {movie.production_countries && movie.production_countries.map((country, index) => (
                     <span key={index}
                     className="  text-gray-500 ">
-                        {country.name}
+                        {(country.name)}
                     </span>
                 ))}
                  </div>
