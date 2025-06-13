@@ -6,11 +6,12 @@
 }
 
 .footer {
-    margin-top: auto;
     padding-bottom: 20px;
     text-align: center;
     font-size: 14px;
     color: #838383;
+    margin-top: 3rem;
+
 }
 
 .footer a{

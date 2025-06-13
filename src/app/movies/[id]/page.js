@@ -78,12 +78,14 @@ console.log("Rating:", certification); // e.g., "PG-13"
   
 
   return (
-        <div className="w-full mx-10">
 
-          <div className="flex justify-between items-center mb-4">
-            <SearchBar /> 
-            <Button cn={style.update} className="w-40" />
-          </div>
+          
+
+        <div className=" px-10 mb-4">
+            <div className="flex justify-between items-center mt-2">
+            <SearchBar className="w-40"/> 
+            <Button cn={style.update} className="w-40 h-14" />
+            </div>
 
             <h1 className="text-white text-2xl font-bold mt-20">{movie.title}</h1>
             <div className="flex flex-wrap gap-3">
@@ -91,6 +93,8 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 <span className="text-gray-500"> {`${((movie.vote_average).toFixed(1))} / 10 `}</span>
                 <span className="text-gray-500"> • </span>
                 <span className="text-gray-500">{releaseYear}</span>
+                <span className="text-gray-500"> • </span>
+
                    <div>
                         <span className="text-gray-500">{`  ${Math.floor(movie.runtime / 60)} hr ${movie.runtime % 60} m`}</span>
                   </div>
@@ -98,21 +102,25 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 <span className="text-gray-500"> • </span>
 
                 <div className="flex flex-row gap-2">
-                {movie.production_countries && movie.production_countries.map((country, index) => (
+                {movie.origin_country && movie.origin_country.map((country, index) => (
                     <span key={index}
                     className="  text-gray-500 ">
-                        {(country.name)}
+                        {(country)}
                     </span>
                 ))}
+
                  </div>
                     {certification && (
-                <span className="text-gray-500">  •  Rated {certification}</span>
+                    
+                    <div className="text-gray-500">
+                    <span className="text-gray-500 mr-1"> • </span>
+                    <span> Rated {certification}</span>
+                        
+                    </div>
                 )}
+                 </div>
 
 
-
-
-            </div>
             <div className="relative w-full">
                <Image
                 src={movie.poster_path 
