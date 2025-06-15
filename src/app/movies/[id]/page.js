@@ -78,10 +78,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
   
 
   return (
-
-          
-
-        <div className=" px-10 mb-4">
+        <div className="px-10">
             <div className="flex justify-between items-center mt-2">
             <SearchBar className=""/> 
             <Button className="text-black w-40 flex justify-between items-center p-2 rounded-xl" />
@@ -120,7 +117,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 )}
                  </div>
 
-
+          <div className="flex gap-2">    
             <div className="relative w-full">
                <Image
                 src={movie.poster_path 
@@ -133,8 +130,10 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 />
 
             </div>
-            <p className="text-white">{movie.overview}</p>
-            <div className="flex flex-row gap-2">
+
+            <div>
+              <p className="text-white">{movie.overview}</p>
+                <div className="flex flex-row gap-2">
                 {movie.genres && movie.genres.map((genre, index) => (
                     <span key={index}
                     className="border border-gray-500 text-gray-500 rounded-xl px-3 py-1 mt-2">
@@ -142,7 +141,11 @@ console.log("Rating:", certification); // e.g., "PG-13"
                     </span>
                 ))}
             </div>
+            </div>
+            </div>        
 
+
+            
 
             <details>
                 <summary className="bg-white w-fit text-black px-3 py-1 rounded-xl text-sm cursor-pointer list-none mt-5 hover:bg-gray-300">
