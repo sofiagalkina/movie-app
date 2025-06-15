@@ -18,7 +18,7 @@ export default function Home() {
           The best movie app in galaxy to help you find a movie for tonight 
       </div>
 
-      <Button  cn={styles.update}  />
+      <Button  className={styles.update} />
 
    </div>
 

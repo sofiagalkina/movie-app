@@ -28,6 +28,8 @@
     line-height: 24px;
     text-align: center;
     color: aliceblue;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 .update{
@@ -40,12 +42,11 @@
     color: #000;
     font-size: 18px;
     font-weight: 500;
-    
-
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .update:hover{
     cursor: pointer;
-    background: #d8bc1b;
-
+    background-color: #5b5953;
 }
