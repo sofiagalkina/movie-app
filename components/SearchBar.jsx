@@ -37,13 +37,13 @@ function SearchBar() {
   };
 
 return (
-  <div className="w-full max-w-md flex items-center gap-2">
+  <div className="w-full flex items-center gap-2">
     <input
       type="text"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       placeholder="Search for a movie..."
-      className="flex-1  py-3 text-lg border border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      className="p-1 text-lg text-black border border-gray-300 rounded-lg bg-white placeholder-gray-400"
     />
     <button
       onClick={handleSearch}
