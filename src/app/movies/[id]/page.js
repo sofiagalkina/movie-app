@@ -83,8 +83,8 @@ console.log("Rating:", certification); // e.g., "PG-13"
 
         <div className=" px-10 mb-4">
             <div className="flex justify-between items-center mt-2">
-            <SearchBar className="w-40"/> 
-            <Button cn={style.update} className="w-40 h-14" />
+            <SearchBar className=""/> 
+            <Button className="text-black w-40 flex justify-between items-center p-2 rounded-xl" />
             </div>
 
             <h1 className="text-white text-2xl font-bold mt-20">{movie.title}</h1>
