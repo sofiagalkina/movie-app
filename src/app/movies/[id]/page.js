@@ -84,6 +84,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
             <Button className="text-black w-40 flex justify-between items-center p-2 rounded-xl" />
             </div>
 
+
             <h1 className="text-white text-2xl font-bold mt-20">{movie.title}</h1>
             <div className="flex flex-wrap gap-3">
                 <span className="bg-yellow-500 text-black rounded-lg px-2 mb-2">IMDb</span>
@@ -118,7 +119,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
                  </div>
 
           <div className="flex gap-2">    
-            <div className="relative w-full">
+            <div className="relative w-[350px]">
                <Image
                 src={movie.poster_path 
                     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` 
@@ -126,34 +127,35 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 alt="Official Movie Picture"
                 width={300}
                 height={550}
-                className="movie-image"
+                className="object-cover rounded-lg"
                 />
 
             </div>
 
-            <div>
-              <p className="text-white">{movie.overview}</p>
-                <div className="flex flex-row gap-2">
-                {movie.genres && movie.genres.map((genre, index) => (
-                    <span key={index}
-                    className="border border-gray-500 text-gray-500 rounded-xl px-3 py-1 mt-2">
-                        {genre.name}
-                    </span>
+            <div className="flex flex-col justify-start flex-1">
+               <p className="text-white">{movie.overview}</p>
+            <div className="flex flex-wrap gap-2 mt-2">
+               {movie.genres && movie.genres.map((genre, index) => (
+                 <span key={index} className="border border-gray-500 text-gray-500 rounded-xl px-3 py-1">
+               {genre.name}
+                 </span>
                 ))}
             </div>
-            </div>
-            </div>        
+          </div>
+        </div>
 
 
             
 
-            <details>
-                <summary className="bg-white w-fit text-black px-3 py-1 rounded-xl text-sm cursor-pointer list-none mt-5 hover:bg-gray-300">
+            <details >
+              
+                <summary className="flex justify-center bg-white w-fit mx-auto text-black px-3 py-1 rounded-xl text-sm cursor-pointer list-none mt-5 hover:bg-gray-300">
                     View more information
                 </summary>
-
+      
+                <div className="flex justify-center">
                 <h2 className="text-white font-bold mt-2">Cast</h2>
-            
+                </div>
                 <div className="flex overflow-x-auto space-x-4 py-4 ">             
                 {cast.cast
                 ?.filter(actor => actor.known_for_department?.toLowerCase() === "acting")
@@ -183,8 +185,9 @@ console.log("Rating:", certification); // e.g., "PG-13"
 </div>  
 
 
-                
-<h2 className="text-white font-bold mt-2">Reviews</h2>
+  <div className="flex justify-center">         
+    <h2 className="text-white font-bold mt-2">Reviews</h2>
+  </div>
 <div className="mt-2 space-y-4">
   {reviews.results && reviews.results.length > 0 ? (
     reviews.results.map((review) => (
