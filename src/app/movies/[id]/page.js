@@ -194,7 +194,23 @@ console.log("Rating:", certification); // e.g., "PG-13"
     reviews.results.map((review) => (
       <div key={review.id} className="border border-gray-700 rounded-lg p-4">
         <p className="text-sm text-gray-400 italic">by {review.author}</p>
-        <p className="text-white mt-1">{review.content.slice(0, 300)}{review.content.length > 300 && '...'}</p>
+        <p className="text-white mt-1">
+  {review.content.slice(0, 300)}
+  {review.content.length > 300 && (
+    <>
+      ...{" "}
+      <a
+        href={review.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-400 hover:underline"
+      >
+        Read more
+      </a>
+    </>
+  )}
+</p>
+
       </div>
     ))
   ) : (
