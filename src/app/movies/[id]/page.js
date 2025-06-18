@@ -89,6 +89,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
             <div className="flex flex-wrap gap-3">
                 <span className="bg-yellow-500 text-black rounded-lg px-2 mb-2">IMDb</span>
                 <span className="text-gray-500"> {`${((movie.vote_average).toFixed(1))} / 10 `}</span>
+                <span className="text-white">{movie.vote_average}</span>
                 <span className="text-gray-500"> • </span>
                 <span className="text-gray-500">{releaseYear}</span>
                 <span className="text-gray-500"> • </span>

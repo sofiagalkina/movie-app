@@ -26,10 +26,14 @@ async function fetchRandomMovie() {
       },
     });
 
-    const results = response.data.results;
+    const results = response.data.results.filter(
+    movie => movie.vote_average >= 4 && movie.vote_count >= 100
+    );
+
     if (!results.length) return null;
 
     const randomMovie = results[Math.floor(Math.random() * results.length)];
+
 
     console.log("Random movie:", randomMovie);
     return randomMovie;
