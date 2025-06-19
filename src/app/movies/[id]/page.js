@@ -86,7 +86,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
 
 
             <h1 className="text-white text-2xl font-bold mt-20">{movie.title}</h1>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 selection:bg-yellow-300 selection:text-black">
                 <span className="bg-yellow-500 text-black rounded-lg px-2 mb-2">IMDb</span>
                 <span className="text-gray-500"> {`${((movie.vote_average).toFixed(1))} / 10 `}</span>
                 <span className="text-gray-500"> • </span>
@@ -110,14 +110,14 @@ console.log("Rating:", certification); // e.g., "PG-13"
                  </div>
                     {certification ? (
                     
-                    <div className="text-gray-500">
+                    <div className="text-gray-500 selection:bg-yellow-300 selection:text-black">
                     <span className="text-gray-500 mr-1"> • </span>
                     <span> Rated {certification}</span>
                     </div>
                 ) : (
                   <div>
-                    <span className="text-gray-500 mr-1"> • </span>
-                    <span className="text-gray-500">No rating was found </span>
+                    <span className="text-gray-500 mr-1 selection:bg-yellow-300 selection:text-black"> • </span>
+                    <span className="text-gray-500 selection:bg-yellow-300 selection:text-black">No content rating available </span>
                   </div>
                 )}
                  </div>
@@ -131,7 +131,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 alt="Official Movie Picture"
                 width={300}
                 height={550}
-                className="object-cover rounded-lg"
+                className="object-cover rounded-lg select-none"
                 />
 
             </div>
@@ -140,7 +140,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
                <p className="text-white">{movie.overview}</p>
             <div className="flex flex-wrap gap-2 mt-2">
                {movie.genres && movie.genres.map((genre, index) => (
-                 <span key={index} className="border border-gray-500 text-gray-500 rounded-xl px-3 py-1">
+                 <span key={index} className="border border-gray-500 text-gray-500 rounded-xl px-3 py-1 selection:bg-yellow-300 selection:text-black">
                {genre.name}
                  </span>
                 ))}
@@ -164,7 +164,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 {cast.cast
                 ?.filter(actor => actor.known_for_department?.toLowerCase() === "acting")
                 .map((actor, index) => (
-                    <div key={`${actor.id}-${index}`} className="flex flex-col items-center text-center gap-2 min-w-[80px]" >
+                    <div key={`${actor.id}-${index}`} className="flex flex-col items-center text-center gap-2 min-w-[80px] select-none" >
                      <Image
 
                             src={
@@ -180,7 +180,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
 
                       <div>
                         <p className="text-white text-sm">{actor.name}</p>
-                        <p className="text-gray-500 text-sm">{actor.character}</p>
+                        <p className="text-gray-500 text-sm selection:bg-yellow-300 selection:text-black">{actor.character}</p>
                       </div>
           
     
@@ -196,7 +196,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
   {reviews.results && reviews.results.length > 0 ? (
     reviews.results.map((review) => (
       <div key={review.id} className="border border-gray-700 rounded-lg p-4">
-        <p className="text-sm text-gray-400 italic">by {review.author}</p>
+        <p className="text-sm text-gray-400 italic selection:bg-yellow-300 selection:text-black">by {review.author}</p>
         <p className="text-white mt-1">
   {review.content.slice(0, 300)}
   {review.content.length > 300 && (
@@ -217,7 +217,7 @@ console.log("Rating:", certification); // e.g., "PG-13"
       </div>
     ))
   ) : (
-    <p className="text-gray-500">No reviews available for this movie.</p>
+    <p className="text-gray-500 selection:bg-yellow-300 selection:text-black">No reviews available for this movie.</p>
   )}
 </div>
 

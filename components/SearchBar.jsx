@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -9,25 +9,44 @@ function SearchBar() {
   const [error, setError] = useState(null);
   const router = useRouter();
 
+  const inappropriateKeywords = [
+    "prostitute", "prostitution", "stripper", "sex", "erotic", "affair", 
+    "nudity", "porn", "hooker", "adult film", "fetish", "orgy", "brothel",
+    "incest", "rape", "molest", "naked", "lust", "seduce", "affairs"
+  ];
+
+  const isFamilyFriendly = (overview) => {
+    if (!overview) return true;
+    const lower = overview.toLowerCase();
+    return !inappropriateKeywords.some((word) => lower.includes(word));
+  };
+
   const handleSearch = async () => {
     if (!query) return;
 
     try {
-      const response = await axios.get("https://imdb236.p.rapidapi.com/api/imdb/search", {
-        params: { 
-          title: query,
-          type: "movie",
-          rows: 10,
-          sortOrder: "ASC",
-          sortField: "id",
+      const response = await axios.get("https://api.themoviedb.org/3/search/movie", {
+        params: {
+          query,
+          include_adult: false,
+          vote_count_gte: 100,
+          vote_average_gte: 4,
+          language: "en-US"
         },
         headers: {
-          'x-rapidapi-key': '0cea453a33msh4502e8811584130p136ef0jsnf29f9bfdebb6',
-          'x-rapidapi-host': 'imdb236.p.rapidapi.com'
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTM1MDAzOWE4YmJlOTQzODZjYzU4YzQ5NTMwNzI2OCIsIm5iZiI6MTc0MzcxNjgyMy43NjQsInN1YiI6IjY3ZWYwMWQ3NjZkNzAxNDJiNjk5MWI3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9Z1ioj8xFQTPba7StLoJV3UXjvFTn2-8iVVIynYSfVU`,
+          accept: "application/json"
         },
       });
 
-      setResults(response.data.results);
+      const filteredResults = response.data.results.filter(
+        (movie) =>
+          movie.vote_average >= 4 &&
+          movie.vote_count >= 100 &&
+          isFamilyFriendly(movie.overview)
+      );
+
+      setResults(filteredResults);
       setError(null);
       router.push(`/searchResult?query=${encodeURIComponent(query)}`);
     } catch (err) {
@@ -36,25 +55,30 @@ function SearchBar() {
     }
   };
 
-return (
-  <div className="w-full flex items-center gap-2">
-    <input
-      type="text"
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-      placeholder="Search for a movie..."
-      className="px-2 text-lg text-black border border-gray-300 rounded-lg bg-white placeholder-gray-400"
-    />
-    <button
-      onClick={handleSearch}
-      className="text-white"
-    >
-      Search
-    </button>
-  </div>
-);
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
-
+  return (
+    <div className="w-full flex items-center gap-2">
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyPress}
+        placeholder="Search for a movie..."
+        className="px-2 text-lg text-black border border-gray-300 rounded-lg bg-white placeholder-gray-400"
+      />
+      <button
+        onClick={handleSearch}
+        className="text-white"
+      >
+        Search
+      </button>
+    </div>
+  );
 }
 
 export default SearchBar;

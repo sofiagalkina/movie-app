@@ -29,22 +29,14 @@ export default function SearchResult() {
             accept: "application/json",
               },
         });
-    setResults(response.data.results || []);
 
-
-        console.log("Search query:", query);
-        console.log("API call with params:", {
-        title: query,
-        type: "movie",
-        rows: 10,
-        sortOrder: "ASC",
-        sortField: "id",
-        });
-
-
-        setResults(response.data.results || []);
-        console.log("Search results from the API: ", response.data.results)
-        setError(null);
+    const rawResults = response.data.results || [];
+    const filteredResults = rawResults.filter(
+      (movie) => movie.vote_average >= 4 && movie.vote_count >= 100
+    );
+    setResults(filteredResults);
+    setError(null);
+    
       } catch (err) {
         console.error(err);
         setError("Failed to fetch results.");
@@ -52,39 +44,58 @@ export default function SearchResult() {
     };
 
     fetchResults();
-  }, [query]); // <== THIS DEPENDENCY MUST EXIST
+  }, [query]); 
 
-  return (
-    <div className="text-white">
-      <h1>Results for: {query}</h1>
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="mt-4">
-        {results.length === 0 ? (
-          <p>No results found.</p>
-        ) : (
-          results.map((movie) => (
-            <div
-              key={movie.id}
-              className="mb-2"
-            
-            >
-              <span className="text-blue-400 underline cursor-pointer" onClick={() => router.push(`/movies/${movie.id}`)} >{movie.title}</span> - <span>{movie.vote_average}</span>
-              <p>{movie.overview}</p>
-              <Image 
-                className="movie-image"
-                width={200}
-                height={450}
-                 alt={`Poster for ${movie.title}`}
-                src={
+return (
+  <div className="min-h-screen bg-black text-white px-6 py-8">
+    <h1 className="text-2xl font-bold mb-2">
+      Results for: <span className="text-[#2cd7fd]">{query}</span>
+    </h1>
+
+    {error && <p className="text-red-500 mb-4">{error}</p>}
+
+    {results.length === 0 ? (
+      <p className="text-gray-400">No results found.</p>
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {results.map((movie) => (
+          <div
+            key={movie.id}
+            className="bg-zinc-900 rounded-xl shadow-md hover:shadow-yellow-500/20 transition duration-300 overflow-hidden"
+          >
+            <Image
+              className="w-full h-[400px] object-cover"
+              width={500}
+              height={750}
+              alt={`Poster for ${movie.title}`}
+              src={
                 movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                : "/images/images.jpeg" 
-                }
-              />
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : "/images/images.jpeg"
+              }
+            />
+            <div className="p-4">
+              <h2
+                className="text-lg font-semibold text-[#2cd7fd] cursor-pointer hover:underline flex items-center justify-center mx-auto"
+                onClick={() => router.push(`/movies/${movie.id}`)}
+              >
+                {movie.title}
+              </h2>
+              <p className="text-sm text-gray-400 mb-2 mt-2 bg-gray-800 rounded-xl w-40 flex items-center justify-center mx-auto ">
+                Rating:{" "}
+                <span className="text-gray-400">
+                  {(movie.vote_average).toFixed(1)} / 10
+                </span>
+              </p>
+              <p className="text-sm text-gray-300 ">
+                {movie.overview || "No overview available."}
+              </p>
             </div>
-          ))
-        )}
+          </div>
+        ))}
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
+
 }
