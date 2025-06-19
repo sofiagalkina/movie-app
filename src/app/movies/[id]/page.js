@@ -108,13 +108,17 @@ console.log("Rating:", certification); // e.g., "PG-13"
                 ))}
 
                  </div>
-                    {certification && (
+                    {certification ? (
                     
                     <div className="text-gray-500">
                     <span className="text-gray-500 mr-1"> • </span>
                     <span> Rated {certification}</span>
-                        
                     </div>
+                ) : (
+                  <div>
+                    <span className="text-gray-500 mr-1"> • </span>
+                    <span className="text-gray-500">No rating was found </span>
+                  </div>
                 )}
                  </div>
 
