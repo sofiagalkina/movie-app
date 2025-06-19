@@ -43,11 +43,11 @@ return (
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       placeholder="Search for a movie..."
-      className="p-1 text-lg text-black border border-gray-300 rounded-lg bg-white placeholder-gray-400"
+      className="px-2 text-lg text-black border border-gray-300 rounded-lg bg-white placeholder-gray-400"
     />
     <button
       onClick={handleSearch}
-      className="px-6 bg-blue-600 hover:bg-blue-700 text-white text-lg rounded-xl transition whitespace-nowrap"
+      className="text-white"
     >
       Search
     </button>
