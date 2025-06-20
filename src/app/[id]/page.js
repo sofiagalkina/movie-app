@@ -169,10 +169,15 @@ export default function MoviePage ()  {
     return (
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="">
-            <SearchBar /> 
-          <Button cn={style.update} className="w-40" />
+       <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full">
+          <div className="w-full sm:w-auto">
+            <SearchBar className="w-full" />
           </div>
+          <div className="w-full sm:w-40">
+            <Button className="w-full" />
+          </div>
+      </div>
+
 
             <h1 className="text-white text-xl sm:text-2xl font-bold mt-10 sm:mt-20">{movie.primaryTitle}</h1>
             <div className="flex flex-wrap gap-3">

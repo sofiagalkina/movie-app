@@ -76,7 +76,7 @@ const Button = ({ text = "Get a movie", cn = "", className = "" }) => {
 
   return (
     <div
-      className={`${style.update} ${className}`}
+      className={`${style.update} ${cn} ${className}`}
       onClick={!loading ? handleClick : null}
       style={{
         backgroundColor: loading ? "#c8c8c8" : "#ebb305",
@@ -86,7 +86,7 @@ const Button = ({ text = "Get a movie", cn = "", className = "" }) => {
       }}
     >
       <Image
-        className={`${style.icon} ${loading ? style.rotate : ""}`}
+        className={`${style.icon} ${loading ? style.rotate : ""} `}
         src={refreshIcon}
         alt="A Movie Button"
         width={14}

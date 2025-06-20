@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-function SearchBar() {
+function SearchBar({className = ""}) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
@@ -62,7 +62,7 @@ function SearchBar() {
   };
 
   return (
-    <div className="w-full flex items-center gap-2">
+    <div className={`flex flex-col sm:flex-row items-center gap-2 w-full ${className}`}>
       <input
         type="text"
         value={query}
