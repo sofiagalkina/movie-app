@@ -80,26 +80,26 @@ console.log("Rating:", certification); // e.g., "PG-13"
   return (
         <div className="px-10">
             <div className="flex justify-between items-center mt-2">
-            <SearchBar /> 
-            <Button className="text-black w-40 flex justify-between items-center p-2 rounded-xl" />
+            <SearchBar className=""/> 
+            <Button className="text-black ml-2 flex gap-2 justify-between items-center p-2 rounded-xl " />
             </div>
 
 
-            <h1 className="text-white text-2xl font-bold mt-20">{movie.title}</h1>
+            <h1 className="text-white text-2xl font-bold mt-20 ">{movie.title}</h1>
             <div className="flex flex-wrap gap-3 selection:bg-yellow-300 selection:text-black">
-                <span className="bg-yellow-500 text-black rounded-lg px-2 mb-2">IMDb</span>
-                <span className="text-gray-500"> {`${((movie.vote_average).toFixed(1))} / 10 `}</span>
-                <span className="text-gray-500"> • </span>
-                <span className="text-gray-500">{releaseYear}</span>
-                <span className="text-gray-500"> • </span>
+                <span className="bg-yellow-500 text-black rounded-lg px-2 mb-2 text-sm sm:text-base">IMDb</span>
+                <span className="text-gray-500 text-sm sm:text-base"> {`${((movie.vote_average).toFixed(1))} / 10 `}</span>
+                <span className="text-gray-500 text-sm sm:text-base"> • </span>
+                <span className="text-gray-500 text-sm sm:text-base">{releaseYear}</span>
+                <span className="text-gray-500 text-sm sm:text-base"> • </span>
 
-                   <div>
-                        <span className="text-gray-500">{`  ${Math.floor(movie.runtime / 60)} hr ${movie.runtime % 60} m`}</span>
+                   <div className="text-sm sm:text-base">
+                        <span className="text-gray-500 text-sm sm:text-base">{`  ${Math.floor(movie.runtime / 60)} hr ${movie.runtime % 60} m`}</span>
                   </div>
 
-                <span className="text-gray-500"> • </span>
+                <span className="text-gray-500 text-sm sm:text-base"> • </span>
 
-                <div className="flex flex-row gap-2">
+                <div className="flex flex-row gap-2 text-sm sm:text-base">
                 {movie.origin_country && movie.origin_country.map((country, index) => (
                     <span key={index}
                     className="  text-gray-500 ">
@@ -110,42 +110,54 @@ console.log("Rating:", certification); // e.g., "PG-13"
                  </div>
                     {certification ? (
                     
-                    <div className="text-gray-500 selection:bg-yellow-300 selection:text-black">
+                    <div className="text-gray-500 selection:bg-yellow-300 selection:text-black text-sm sm:text-base">
                     <span className="text-gray-500 mr-1"> • </span>
                     <span> Rated {certification}</span>
                     </div>
                 ) : (
                   <div>
-                    <span className="text-gray-500 mr-1 selection:bg-yellow-300 selection:text-black"> • </span>
-                    <span className="text-gray-500 selection:bg-yellow-300 selection:text-black">No content rating available </span>
+                    <span className="text-gray-500 mr-1 selection:bg-yellow-300 selection:text-black text-sm sm:text-base"> • </span>
+                    <span className="text-gray-500 selection:bg-yellow-300 selection:text-black text-sm sm:text-base">No content rating available </span>
                   </div>
                 )}
                  </div>
 
           <div className="flex gap-2">    
-            <div className="relative w-[350px]">
-               <Image
-                src={movie.poster_path 
-                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` 
-                    : "/images/placeholder.png"}
-                alt="Official Movie Picture"
-                width={300}
-                height={550}
-                className="object-cover rounded-lg select-none"
-                />
+        <div className="clearfix">
+  <div className="flex flex-col sm:flex-row gap-2">
+    {/* Poster */}
+    <div className="relative w-full sm:w-[350px]">
+      <Image
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : "/images/placeholder.png"
+        }
+        alt="Official Movie Picture"
+        width={300}
+        height={550}
+        className="object-cover rounded-lg select-none w-2/3 float-left mr-4 mb-2 sm:float-none sm:w-auto"
+      />
+    </div>
 
-            </div>
+    {/* Overview + Genres */}
+    <div className="flex flex-col justify-start flex-1">
+      <p className="text-white text-sm sm:text-base">{movie.overview}</p>
 
-            <div className="flex flex-col justify-start flex-1">
-               <p className="text-white">{movie.overview}</p>
-            <div className="flex flex-wrap gap-2 mt-2">
-               {movie.genres && movie.genres.map((genre, index) => (
-                 <span key={index} className="border border-gray-500 text-gray-500 rounded-xl px-3 py-1 selection:bg-yellow-300 selection:text-black">
-               {genre.name}
-                 </span>
-                ))}
-            </div>
-          </div>
+      <div className="flex flex-wrap gap-2 mt-2 text-sm sm:text-base">
+        {movie.genres?.map((genre, index) => (
+          <span
+            key={index}
+            className="border border-gray-500 text-gray-500 rounded-xl px-3 py-1 selection:bg-yellow-300 selection:text-black"
+          >
+            {genre.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
         </div>
 
 

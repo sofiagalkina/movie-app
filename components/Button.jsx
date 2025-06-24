@@ -76,7 +76,7 @@ const Button = ({ text = "Get a movie", cn = "", className = "" }) => {
 
   return (
     <div
-      className={`${style.update} ${cn} ${className}`}
+      className={`${style.update} ${cn} ${className}  `}
       onClick={!loading ? handleClick : null}
       style={{
         backgroundColor: loading ? "#c8c8c8" : "#ebb305",
